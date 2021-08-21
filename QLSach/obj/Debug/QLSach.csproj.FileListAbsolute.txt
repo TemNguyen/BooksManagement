@@ -1,0 +1,16 @@
+C:\Users\ADMIN\Desktop\QLSach\QLSach\bin\Debug\QLSach.exe.config
+C:\Users\ADMIN\Desktop\QLSach\QLSach\bin\Debug\QLSach.exe
+C:\Users\ADMIN\Desktop\QLSach\QLSach\bin\Debug\QLSach.pdb
+C:\Users\ADMIN\Desktop\QLSach\QLSach\bin\Debug\EntityFramework.dll
+C:\Users\ADMIN\Desktop\QLSach\QLSach\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\ADMIN\Desktop\QLSach\QLSach\bin\Debug\EntityFramework.xml
+C:\Users\ADMIN\Desktop\QLSach\QLSach\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\ADMIN\Desktop\QLSach\QLSach\obj\Debug\QLSach.csprojAssemblyReference.cache
+C:\Users\ADMIN\Desktop\QLSach\QLSach\obj\Debug\QLSach.Properties.Resources.resources
+C:\Users\ADMIN\Desktop\QLSach\QLSach\obj\Debug\QLSach.Form1.resources
+C:\Users\ADMIN\Desktop\QLSach\QLSach\obj\Debug\QLSach.UI.Form2.resources
+C:\Users\ADMIN\Desktop\QLSach\QLSach\obj\Debug\QLSach.csproj.GenerateResource.cache
+C:\Users\ADMIN\Desktop\QLSach\QLSach\obj\Debug\QLSach.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\Desktop\QLSach\QLSach\obj\Debug\QLSach.csproj.CopyComplete
+C:\Users\ADMIN\Desktop\QLSach\QLSach\obj\Debug\QLSach.exe
+C:\Users\ADMIN\Desktop\QLSach\QLSach\obj\Debug\QLSach.pdb

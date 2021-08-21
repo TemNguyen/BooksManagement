@@ -63,7 +63,7 @@ namespace QLSach.DAL
                 switch (property_Name)
                 {
                     case "ID":
-                        books = db.Books.Where(p => p.ID == value).ToList();
+                        books = db.Books.Where(p => p.ID.ToUpper().Contains(value.ToUpper())).ToList();
                         break;
                     case "Name":
                         books = db.Books.Where(p => p.Name.ToUpper().Contains(value.ToUpper())).ToList();

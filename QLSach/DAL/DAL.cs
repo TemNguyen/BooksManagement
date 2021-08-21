@@ -10,7 +10,6 @@ namespace QLSach.DAL
 {
     class DAL
     {
-        CSDL db = new CSDL();
         private static DAL _Instance;
         public static DAL Instance
         {
@@ -54,29 +53,32 @@ namespace QLSach.DAL
         private List<Book> GetBooksBy(string property_Name, string value)
         {
             List<Book> books = new List<Book>();
-            if (value == "")
+            using (var db = new CSDL())
             {
-                books = db.Books.ToList();
-            }
-            else
-            {
-                switch (property_Name)
+                if (value == "")
                 {
-                    case "ID":
-                        books = db.Books.Where(p => p.ID.ToUpper().Contains(value.ToUpper())).ToList();
-                        break;
-                    case "Name":
-                        books = db.Books.Where(p => p.Name.ToUpper().Contains(value.ToUpper())).ToList();
-                        break;
-                    case "ReleaseDate":
-                        books = db.Books.Where(p => p.ReleaseDate.ToString().Contains(value)).ToList();
-                        break;
-                    case "IsEbook":
-                        books = db.Books.Where(p => p.IsEbook.ToString().Contains(value)).ToList();
-                        break;
+                    books = db.Books.Include("Author").ToList();
                 }
-            }
-            return books;
+                else
+                {
+                    switch (property_Name)
+                    {
+                        case "ID":
+                            books = db.Books.Where(p => p.ID.ToUpper().Contains(value.ToUpper())).Include("Author").ToList();
+                            break;
+                        case "Name":
+                            books = db.Books.Where(p => p.Name.ToUpper().Contains(value.ToUpper())).Include("Author").ToList();
+                            break;
+                        case "ReleaseDate":
+                            books = db.Books.Where(p => p.ReleaseDate.ToString().Contains(value)).Include("Author").ToList();
+                            break;
+                        case "IsEbook":
+                            books = db.Books.Where(p => p.IsEbook.ToString().Contains(value)).Include("Author").ToList();
+                            break;
+                    }
+                }
+                return books;
+            }    
         }
         /// <summary>
         /// Get 1 Bool theo ID
@@ -85,11 +87,14 @@ namespace QLSach.DAL
         /// <returns></returns>
         public Book Get1Book(string ID)
         {
-            var book = db.Books.Find(ID);
-            if (book == null)
-                return new Book();
-            else
-                return book;
+            using (var db = new CSDL())
+            {
+                var book = db.Books.Find(ID);
+                if (book == null)
+                    return new Book();
+                else
+                    return book;
+            }    
         }
         /// <summary>
         /// Get tất cả Author
@@ -97,7 +102,10 @@ namespace QLSach.DAL
         /// <returns></returns>
         public List<Author> GetAllAuthor()
         {
-            return db.Authors.ToList();
+            using (var db = new CSDL())
+            {
+                return db.Authors.ToList();
+            }               
         }
         /// <summary>
         /// Get tất cả thuộc tính của đối tượng Book
@@ -120,15 +128,18 @@ namespace QLSach.DAL
         /// <returns></returns>
         public bool DeleteBooks(List<string> IDs)
         {
-            foreach(string ID in IDs)
+            using (var db = new CSDL())
             {
-                var book = db.Books.Find(ID);
-                if (book == null)
-                    return false;
-                db.Books.Remove(book);
-            }
-            db.SaveChanges();
-            return true;
+                foreach (string ID in IDs)
+                {
+                    var book = db.Books.Find(ID);
+                    if (book == null)
+                        return false;
+                    db.Books.Remove(book);
+                }
+                db.SaveChanges();
+                return true;
+            }    
         }
         /// <summary>
         /// Add 1 Book to Database
@@ -137,9 +148,12 @@ namespace QLSach.DAL
         /// <returns></returns>
         public bool AddBook(Book book)
         {
-            db.Books.Add(book);
-            db.SaveChanges();
-            return true;
+            using (var db = new CSDL())
+            {
+                db.Books.Add(book);
+                db.SaveChanges();
+                return true;
+            }    
         }
         /// <summary>
         /// Edit 1 Book
@@ -148,19 +162,22 @@ namespace QLSach.DAL
         /// <returns></returns>
         public bool EditBook(Book book)
         {
-            var b = db.Books.Find(book.ID);
-            if (b == null)
-                return false;
-            else
+            using (var db = new CSDL())
             {
-                b.Name = book.Name;
-                b.ReleaseDate = book.ReleaseDate;
-                b.IsEbook = book.IsEbook;
-                b.Author_ID = book.Author_ID;
-            }
+                var b = db.Books.Find(book.ID);
+                if (b == null)
+                    return false;
+                else
+                {
+                    b.Name = book.Name;
+                    b.ReleaseDate = book.ReleaseDate;
+                    b.IsEbook = book.IsEbook;
+                    b.Author_ID = book.Author_ID;
+                }
 
-            db.SaveChanges();
-            return true;
+                db.SaveChanges();
+                return true;
+            }    
         }
         /// <summary>
         /// Kiểm tra Book đã tồn tại hay chưa
@@ -169,10 +186,13 @@ namespace QLSach.DAL
         /// <returns></returns>
         public bool IsExist(string ID)
         {
-            var b = db.Books.Find(ID);
-            if (b != null)
-                return true;
-            return false;
+            using (var db = new CSDL())
+            {
+                var b = db.Books.Find(ID);
+                if (b != null)
+                    return true;
+                return false;
+            }    
         }
     }
 }

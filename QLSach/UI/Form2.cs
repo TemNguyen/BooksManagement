@@ -95,7 +95,10 @@ namespace QLSach.UI
         }
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
-            GoToForm1();
+            this.Dispose();
+            thread = new Thread(OutForm);
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
         }
         bool ValidateData()
         {
@@ -116,6 +119,10 @@ namespace QLSach.UI
             Form1 f1 = new Form1();
             f1.Getbook(Book);
             Application.Run(f1);
+        }
+        void OutForm()
+        {
+            Application.Run(new Form1());
         }
         void GoToForm1()
         {
